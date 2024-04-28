@@ -66,7 +66,7 @@ kable( horizons_checked%>% filter(valid==F) %>%
 
 ```
 ```{r inlcude=F,echo=F, warning=F, message=F}
-kable(horizons_B %>% filter(Mallin %in% (horizons_checked%>% filter(valid==F) %>% pull(Mallin))) %>% select(Mallin,top,bottom,SAND,SILT,CLAY), align = "c",caption = "Clasificacion textural de las capas analizadas",digits=1)
+kable(horizons_B %>% filter(Mallin %in% (horizons_checked%>% filter(valid==F) %>% pull(Mallin))) %>% select(Mallin,top,bottom,SAND,SILT,CLAY), align = "c",caption = "Capas de suelo con problemas en profundidades",digits=1)
 
 ```
 
