@@ -46,9 +46,9 @@ depths(horizons) <- Mallin  ~ top + bottom
 
 # 1 Introducción
 
-Se analizaron `r nrow(horizons) ` localizados en  `r length(horizons)`, comprendiendo distintas profundidades, abarcando desde la superfie hasta `r max(horizons$bottom)`. 
+Se analizaron `r nrow(horizons) ` capas de suelos, localizadas en  `r length(horizons)` perfiles, comprendiendo distintas profundidades, abarcando desde la superfie hasta `r max(horizons$bottom,na.rm=T)`. 
 
-De los mismos, `r checkHzDepthLogic(horizons)%>% filter(valid==F) %>% nrow()` perfiles presentaron problemas en sus profundidades, los cuales se detallan a continuacion
+De los mismos, `r checkHzDepthLogic(horizons)%>% filter(valid==F) %>% nrow()` perfiles presentaron problemas en sus profundidades, los cuales se detallan a continuación
 
 ```{r inlcude=F,echo=F, warning=F, message=F, eval=T,results='hide'}
 
@@ -136,7 +136,7 @@ horizons_cleaned$Clase_textural <- sustituir_nombres(Texturas, "Clase_textural")
 horizons_cleaned %>% as.data.frame() %>% View()
 ```
 
-# 2 Graficos de perfiles
+# 2 Gráficos de perfiles
 
 ```{r include=T, echo=F, message=F, warning=FALSE}
 # graphical check
