@@ -154,9 +154,28 @@ for(i in 1:length(horizons_cleaned)){
   #         color="horizons_munsell_color")
   }
 ```
+
+```{r include=T, echo=F, message=F, warning=FALSE}
+# graphical check
+par(mar = c(1,1,1,1))
+Output_dir <- "./03_Results/01_Profile_plots"
+if(!dir.exists(Output_dir))dir.create(Output_dir)
+
+for(i in 1:length(horizons_cleaned)){
+
+  jpeg(file=paste0(Output_dir,"/Profile_",unique(horizons_cleaned[i,]$Mallin),".jpeg"),width=600, height=750, quality = 200)
+  plotSPC(unique(horizons_cleaned[i,], vars = c('top', 'bottom')), 
+                name.style = 'center-center', width = 0.15,color="horizons_munsell_color", 
+                fixLabelCollisions = TRUE,plot.depth.axis = T,axis.line.offset = -10,
+                hz.depths = TRUE,hz.depths.lines=F,hz.depths.offset = c(0.01),shrink=T, cex.names=1.5)
+  dev.off()
+  # plotSPC(horizons_cleaned[i,], cex.names = 1, name.style = 'center-center', width = 0.3, plot.depth.axis = T, hz.depths = TRUE,
+  #         hz.depths.lines=T, fixLabelCollisions = TRUE,   hz.depths.offset = c(0.005),
+  #         color="horizons_munsell_color")
+  }
+```
+
 ```{r include=F}
-
-
 texture_df<- as.data.frame(horizons_cleaned) %>% 
   filter(complete.cases(SAND)) %>% 
   mutate(prof_media_horizonte =((top+bottom)/2))
@@ -256,7 +275,7 @@ USDA_text <- USDA %>% group_by(Etiqueta)%>%
 ```
 
 ```{r echo=F, warning=F, message=F}
-ggplot(data = USDA, aes(
+Triangle_color_with_legend <- ggplot(data = USDA, aes(
   y = Arcilla,
   x = Arena,
   z = Limo
@@ -286,11 +305,48 @@ ggplot(data = USDA, aes(
    labs(fill = "Referencias") 
   # guides(fill=FALSE, color=FALSE)+
 
+Triangle_color_with_legend
+
+```
+```{r echo=F, warning=F, message=F}
+Triangle_color_wout_legend <- ggplot(data = USDA, aes(
+  y = Arcilla,
+  x = Arena,
+  z = Limo
+)) +
+  coord_tern(L = "x", T = "y", R = "z") +
+  geom_polygon(
+    aes(fill = Ref_etiqueta),
+    alpha = 0.2,
+    size = 0.5,
+    color = "black",
+    show.legend=F
+  ) +
+  geom_text(data = USDA_text,
+            aes(label = Etiqueta_inside),
+            color = 'gray58',
+            size = 2) +
+  geom_point(
+    data = texture_df,
+    aes(
+      x = SAND,
+      y = CLAY,
+      z = SILT
+    ),
+  size=0.3) +
+  theme_showarrows() +
+  theme_clockwise() +
+  theme(text = element_text(family = "Helvetica"))  +
+   labs(fill = "Referencias") 
+  # guides(fill=FALSE, color=FALSE)+
+
+Triangle_color_wout_legend
+
 ```
 
 ```{r echo=F , warning=F, message=F}
 theme_set(theme_bw())
-ggplot(data = USDA, aes(
+Triangle_white_with_legend <- ggplot(data = USDA, aes(
   y = Arcilla,
   x = Arena,
   z = Limo
@@ -331,12 +387,13 @@ ggplot(data = USDA, aes(
   theme(text = element_text(family = "Helvetica")) +
    labs(fill = "Referencias") 
   #guides(fill=T, color=FALSE)
+Triangle_white_with_legend
 
 ```
 
 ```{r echo=F , warning=F, message=F}
 theme_set(theme_bw())
-ggplot(data = USDA, aes(
+Triangle_white_wout_legend <- ggplot(data = USDA, aes(
   y = Arcilla,
   x = Arena,
   z = Limo
@@ -371,6 +428,32 @@ ggplot(data = USDA, aes(
   theme(text = element_text(family = "Helvetica")) +
    labs(fill = "Referencias") 
   #guides(fill=T, color=FALSE)
+Triangle_white_wout_legend
 
 ```
 
+```{r include=T, echo=F, message=F, warning=FALSE,results=F}
+# graphical check
+par(mar = c(1,1,1,1))
+Output_dir <- "./03_Results/02_Triangle_texture_plots"
+if(!dir.exists(Output_dir))dir.create(Output_dir)
+
+jpeg(file=paste0(Output_dir,"/Triangle_white_wout_legend.jpeg"),width=1200, height=1200, quality = 100,res = 250)
+Triangle_white_wout_legend
+dev.off()
+
+jpeg(file=paste0(Output_dir,"/Triangle_white_with_legend.jpeg"),width=1200, height=1200, quality = 100,res = 150)
+Triangle_white_with_legend
+dev.off()
+
+jpeg(file=paste0(Output_dir,"/Triangle_color_wout_legend.jpeg"),width=1200, height=1200, quality = 100,res = 250)
+Triangle_color_wout_legend
+dev.off()
+
+jpeg(file=paste0(Output_dir,"/Triangle_color_with_legend.jpeg"),width=1200, height=1200, quality = 100,res = 150)
+Triangle_color_with_legend
+dev.off()
+
+
+
+```
