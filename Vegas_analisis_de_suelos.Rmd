@@ -46,7 +46,7 @@ depths(horizons) <- Mallin  ~ top + bottom
 
 # 1 Introducción
 
-Se analizaron `r nrow(horizons) ` capas de suelos, localizadas en  `r length(horizons)` perfiles, comprendiendo distintas profundidades, abarcando desde la superfie hasta `r max(horizons$bottom,na.rm=T)`. 
+Se analizaron `r nrow(horizons) ` capas de suelos, localizadas en  `r length(horizons)` perfiles, comprendiendo distintas profundidades desde la superfie hasta `r max(horizons$bottom,na.rm=T)/100` m. 
 
 De los mismos, `r checkHzDepthLogic(horizons)%>% filter(valid==F) %>% nrow()` perfiles presentaron problemas en sus profundidades, los cuales se detallan a continuación
 
