@@ -50,4 +50,6 @@ po/*~
 # RStudio Connect folder
 rsconnect/
 
+/Vegas_analisis_de_suelos.Rmd
+./Vegas_analisis_de_suelos.Rmd
 Vegas_analisis_de_suelos.Rmd

@@ -2,7 +2,7 @@
 
 ## Tabla de Contenidos
 
-- Reportes:
+- 
     - [Reporte pdf](/Vegas_analisis_de_suelos.pdf)
     - [Reporte web](/Vegas_analisis_de_suelos.html)
 - [Figuras](/03_Results)
