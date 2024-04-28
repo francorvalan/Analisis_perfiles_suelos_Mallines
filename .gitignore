@@ -1,3 +1,4 @@
+
 # History files
 .Rhistory
 .Rapp.history
@@ -48,3 +49,5 @@ po/*~
 
 # RStudio Connect folder
 rsconnect/
+
+Vegas_analisis_de_suelos.Rmd
